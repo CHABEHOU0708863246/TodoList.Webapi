@@ -1,6 +1,6 @@
-Cet article explique comment créer une application de liste de tâches à l’aide de l’API Web .Net 6, de l’authentification JWT et de l’identité AspNetCore. Microsoft SQL Server est utilisé pour afficher la base de données et les tables.
+Cet article explique comment crÃ©er une application de liste de tÃ¢ches Ã  lâ€™aide de lâ€™API Web .Net 6, de lâ€™authentification JWT et de lâ€™identitÃ© AspNetCore. Microsoft SQL Server est utilisÃ© pour afficher la base de donnÃ©es et les tables.
 
-Ceci est la partie 1 (Backend) d’un travail en 2 parties. La partie 2 utilisera Angular pour créer l’interface de l’application de liste de tâches.
+Ceci est la partie 1 (Backend) dâ€™un travail en 2 parties. La partie 2 utilisera Angular pour crÃ©er lâ€™interface de lâ€™application de liste de tÃ¢ches.
 
 Outils
 
@@ -10,21 +10,21 @@ Microsoft SQL Server
 
 Baclog
 
-En tant qu’utilisateur, je souhaite m’inscrire pour utiliser l’application to-do
-L’utilisateur doit être en mesure d’enregistrer ses informations d’identification pour pouvoir utiliser l’application to-do.
-En tant qu’utilisateur, je souhaite me connecter pour utiliser l’application to-do
-L’utilisateur doit être en mesure de créer un nouvel élément à faire, l’élément doit avoir un nom et une description.
-En tant qu’utilisateur, je souhaite créer un élément à faire
-L’utilisateur doit être en mesure de créer un nouvel élément à faire, l’élément doit avoir un nom et une description.
-En tant qu’utilisateur, je souhaite modifier un élément existant
-L’utilisateur doit pouvoir modifier un élément de tâche existant, l’utilisateur doit pouvoir modifier le nom et la description.
-En tant qu’utilisateur, je souhaite afficher tous mes éléments à faire
-L’utilisateur doit être en mesure de voir tous ses éléments à faire.
-En tant qu’utilisateur, je souhaite mettre à jour le statut d’un élément à faire
-En tant qu’utilisateur, je souhaite marquer un élément à faire comme terminé.
+En tant quâ€™utilisateur, je souhaite mâ€™inscrire pour utiliser lâ€™application to-do
+Lâ€™utilisateur doit Ãªtre en mesure dâ€™enregistrer ses informations dâ€™identification pour pouvoir utiliser lâ€™application to-do.
+En tant quâ€™utilisateur, je souhaite me connecter pour utiliser lâ€™application to-do
+Lâ€™utilisateur doit Ãªtre en mesure de crÃ©er un nouvel Ã©lÃ©ment Ã  faire, lâ€™Ã©lÃ©ment doit avoir un nom et une description.
+En tant quâ€™utilisateur, je souhaite crÃ©er un Ã©lÃ©ment Ã  faire
+Lâ€™utilisateur doit Ãªtre en mesure de crÃ©er un nouvel Ã©lÃ©ment Ã  faire, lâ€™Ã©lÃ©ment doit avoir un nom et une description.
+En tant quâ€™utilisateur, je souhaite modifier un Ã©lÃ©ment existant
+Lâ€™utilisateur doit pouvoir modifier un Ã©lÃ©ment de tÃ¢che existant, lâ€™utilisateur doit pouvoir modifier le nom et la description.
+En tant quâ€™utilisateur, je souhaite afficher tous mes Ã©lÃ©ments Ã  faire
+Lâ€™utilisateur doit Ãªtre en mesure de voir tous ses Ã©lÃ©ments Ã  faire.
+En tant quâ€™utilisateur, je souhaite mettre Ã  jour le statut dâ€™un Ã©lÃ©ment Ã  faire
+En tant quâ€™utilisateur, je souhaite marquer un Ã©lÃ©ment Ã  faire comme terminÃ©.
 
 
-Liste des packages NuGet installé pour l'application : 
+Liste des packages NuGet installÃ© pour l'application : 
 Microsoft.EntityFrameworkCore.SqlServer
 Microsoft.EntityFrameworkCore.Tools
 Microsoft.AspNetCore.Identity.EntityFrameworkCore
@@ -32,27 +32,27 @@ Microsoft.AspNetCore.Identity
 Microsoft.AspNetCore.Authentication.JwtBearer
 Microsoft.VisualStudio.Web.CodeGeneration.Design
 
-Création un dossier Authentication qui contiendra une classe ApplicationUser.cs qui héritera de la classe IdentityUser et de la classe Response.cs qui renverra un message et un code d’état lorsqu’un utilisateur s’inscrit ou se connecte à l’application. La classe IdentityUser fait partie d’AspNetCore Identity.
+CrÃ©ation un dossier Authentication qui contiendra une classe ApplicationUser.cs qui hÃ©ritera de la classe IdentityUser et de la classe Response.cs qui renverra un message et un code dâ€™Ã©tat lorsquâ€™un utilisateur sâ€™inscrit ou se connecte Ã  lâ€™application. La classe IdentityUser fait partie dâ€™AspNetCore Identity.
 
-Création d'un dossier Models, qui contiendra une classe RegisterModel.cs pour l’inscription des utilisateurs, une classe LoginModel.cs pour la connexion utilisateur, UserRoles.cs pour les rôles d’utilisateur et ToDoItemModel.cs pour les éléments de tâches. 
+CrÃ©ation d'un dossier Models, qui contiendra une classe RegisterModel.cs pour lâ€™inscription des utilisateurs, une classe LoginModel.cs pour la connexion utilisateur, UserRoles.cs pour les rÃ´les dâ€™utilisateur et ToDoItemModel.cs pour les Ã©lÃ©ments de tÃ¢ches. 
 
-Création d'un dossier Data qui contiendra également le fichier ApplicationDbContext.cs qui mappe les modèles aux tables qui seront créées lors de la migration.
+CrÃ©ation d'un dossier Data qui contiendra Ã©galement le fichier ApplicationDbContext.cs qui mappe les modÃ¨les aux tables qui seront crÃ©Ã©es lors de la migration.
 
-RegisterModel.cs, LoginModel.cs et UserRoles.cs seront liés aux tables d’identité. Cela signifie que seuls les champs décrits dans les modèles seront requis lorsqu’un utilisateur s’inscrit et se connecte à l’application. Les rôles afficheront les rôles qu’un utilisateur peut avoir, par exemple, « admin ».
-
-
-Création dans le dossier Controlers, des deux controllers (Authentification et TodoItem) qui seront utilisés pour l’inscription et la connexion des utilisateurs et pour la création, la modification et l’affichage des éléments de tâches.
-
-Création du script de migration à l’aide de la commande « add-migration » dans la console du gestionnaire de packages.
+RegisterModel.cs, LoginModel.cs et UserRoles.cs seront liÃ©s aux tables dâ€™identitÃ©. Cela signifie que seuls les champs dÃ©crits dans les modÃ¨les seront requis lorsquâ€™un utilisateur sâ€™inscrit et se connecte Ã  lâ€™application. Les rÃ´les afficheront les rÃ´les quâ€™un utilisateur peut avoir, par exemple, Â« admin Â».
 
 
-Création de la base de données à l’aide de la commande « update-database » dans la console du gestionnaire de packages.
+CrÃ©ation dans le dossier Controlers, des deux controllers (Authentification et TodoItem) qui seront utilisÃ©s pour lâ€™inscription et la connexion des utilisateurs et pour la crÃ©ation, la modification et lâ€™affichage des Ã©lÃ©ments de tÃ¢ches.
 
-Test de l’application
+CrÃ©ation du script de migration Ã  lâ€™aide de la commande Â« add-migration Â» dans la console du gestionnaire de packages.
+
+
+CrÃ©ation de la base de donnÃ©es Ã  lâ€™aide de la commande Â« update-database Â» dans la console du gestionnaire de packages.
+
+Test de lâ€™application
 
 url de L'API avec le serveur IIS Express : https://localhost:44352/index.html
 
-Pour etre autoriser à tester les Requetes (GET, POST, PUT, DELETE) vous devez renseigner le nom d'utilisateur et le Password que voici :
+Pour etre autoriser Ã  tester les Requetes (GET, POST, PUT, DELETE) vous devez renseigner le nom d'utilisateur et le Password que voici :
 {
   "username": "Auxence",
   "password": "08863246Bebejo@"
@@ -63,4 +63,4 @@ sur l'url : https://localhost:44352/api/Authentication/login
 recuperer le token et ensuite utiliser le bouton Authorize pour la validation et ensuite finaliser l'autorisation 
 
 
-Pour plus de fonctionnalité et de test approfondie, vous pouvez utiliser le backend avec le frontend Angular qui est disponible sur mon github : 
+Pour plus de fonctionnalitÃ© et de test approfondie, vous pouvez utiliser le backend avec le frontend Angular qui est disponible sur mon github : https://github.com/CHABEHOU0708863246/TodoList.Frontend.git
